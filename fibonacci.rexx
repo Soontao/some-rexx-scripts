@@ -11,7 +11,7 @@ fibonacci array
 @param max : array length
 */
 FIBO: PROCEDURE
-    MAX = ARG(1) /* MAX = 10 */
+    ARG MAX /* MAX = 10 */
     WHERE = 1
     DO FOREVER
         IF WHERE >= MAX THEN 
@@ -38,5 +38,6 @@ FIBO: PROCEDURE
         PULL ELE
         FIBOSTR = ELE FIBOSTR
     END
+    /* RESTORE BEFORE STACK */
     RETURN FIBOSTR
 

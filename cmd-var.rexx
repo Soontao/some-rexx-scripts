@@ -8,5 +8,8 @@ say 'arg len is:' arg()
 say 'first arg is:' arg(1)
 
 parse value arg(1) with arg0 arg1 arg2
+/* same as 
+arg arg0 arg1 arg2
+*/
 
 say arg2
