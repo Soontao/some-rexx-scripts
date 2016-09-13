@@ -21,7 +21,7 @@ FIBO: PROCEDURE
         IF WHERE = 2 THEN 
         DO
             PUSH 1
-            PUS-H 1
+            PUSH 1
         END
         ELSE 
         DO 
