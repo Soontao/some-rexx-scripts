@@ -14,7 +14,6 @@ say a" * x^2 +" b "* x +" c "=" r
 exit
 
 
-
 delta:
   /* use to get the delta */
   arg a b c 
@@ -22,19 +21,14 @@ delta:
   return r
 
 sqrt:
-  /* use to get the root of square */
+  /* get the root of square */
   arg n .
+  numeric digits 4
   select 
     when n < 0 then
-      do
-      numeric digits 4
       n = -n
-      end
     when n = 0 then 
-      do
-      numeric digits 3
       return n
-      end
     otherwise 
       n = n
     end
@@ -47,7 +41,7 @@ sqrt:
   return r
 
 sqrtdelta:
-  /* the root of delta */
+  /* root of delta */
   arg a b c
   r = delta(a b c)
   r = sqrt(r)
