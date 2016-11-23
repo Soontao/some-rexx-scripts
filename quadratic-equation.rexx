@@ -6,6 +6,12 @@ numeric digits 4
 
 arg a b c .
 
+if a = 0 | a = a  then 
+do 
+  say 'usage: rexx quadratic-equation.rexx a b c, var a should not equal to 0'
+  exit
+end
+
 d = delta(a b c)
 r = (-b) / (2 * a) '±' (sqrtdelta(a b c) / (2 * a))
 if d < 0 then r = r'i' 
