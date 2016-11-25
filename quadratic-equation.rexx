@@ -6,7 +6,7 @@ numeric digits 4
 
 arg a b c .
 
-if a = 0 | a = a  then 
+if a = 0 | a = '' then 
 do 
   say 'usage: rexx quadratic-equation.rexx a b c, var a should not equal to 0'
   exit
