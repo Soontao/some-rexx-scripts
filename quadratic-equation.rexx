@@ -8,12 +8,17 @@ arg a b c .
 
 if a = 0 | a = '' then 
 do 
-  say 'usage: rexx quadratic-equation.rexx a b c, var a should not equal to 0'
+  say 'usage: rexx quadratic-equation.rexx a b c'
+  say 'VAR a SHOULD NOT EQUAL to ZERO or EMPTY'
   exit
 end
 
+/* if var not init, make it be zero */
+if b = '' then b = 0 
+if c = '' then c = 0
+
 d = delta(a b c)
-r = (-b) / (2 * a) '±' (sqrtdelta(a b c) / (2 * a))
+r = (-b) / (2 * a) '±' (sqrt(d) / (2 * a))
 if d < 0 then r = r'i' 
 say a" * x^2 +" b "* x +" c "=" r 
 
@@ -30,25 +35,12 @@ sqrt:
   /* get the root of square */
   arg n .
   numeric digits 4
-  select 
-    when n < 0 then
-      n = -n
-    when n = 0 then 
-      return n
-    otherwise 
-      n = n
-    end
-    r=1   
-    do forever /* Newton's method */
-        rr=(n/r+r)/2
-        if r=rr then leave
-        r=rr
-    end
+  if n < 0 then n = -n 
+  if n =0 then return 0
+  r=1   
+  do forever /* Newton's method */
+      rr=(n/r+r)/2
+      if r=rr then leave
+      r=rr
+  end
   return r
-
-sqrtdelta:
-  /* root of delta */
-  arg a b c
-  r = delta(a b c)
-  r = sqrt(r)
-  return r 
