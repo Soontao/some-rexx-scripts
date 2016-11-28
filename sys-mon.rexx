@@ -4,7 +4,7 @@
 
 arg run . 
 
-if strip(run) = 'MAIN' then main()
+if run = 'MAIN' then main()
 else test()
 
 exit
@@ -12,6 +12,7 @@ exit
 /* Functions */
 
 main:
+  say now is not available
   return ''
 
 test:
@@ -23,24 +24,47 @@ test:
   say getcpuload()
   say getcpunum()
   say gettasksnum()
+  say getpsinfo()
   say memg()
   showscreen()
   return ''  
 
 showscreen:
- s = buildscreen();
-  do row=1 to 24
-    /* skip uninited value */
-    if s.row \= 'S.'row then say s.row
-  end
+  s = buildscreen();
+  say s
   return ''
 
-buildscreen:
-  s.1 = rexx sys monit '09'X '|'  ver 0.0.1 '09'X '|'  uestc 2016
-  s.2 = user  upper(getusername()) '09'X '|' time  gettime()
-  s.3 = mifo  getmeminfo() '09'X '|' muse memg()
-  s.4 = uptm upper(getuptime())
+lf:
+  return '0A'X
 
+tab:
+  return '09'X
+
+tabandvl:
+  /* a tab and a vertical line */
+  return '097C'X
+
+splitline:
+  r = ''
+  do i=1 to 80
+    r = r||'-'
+  end
+  return r
+  
+addnewline:
+  arg s,add
+  s = s||add lf();
+  return s 
+
+
+buildscreen:
+  s = ''
+  s = addnewline(s,(rexx sys monit tabandvl()  ver 0.0.1 tabandvl() uestc 2016))
+  s = addnewline(s,(user  upper(getusername()) tabandvl() time gettime()tabandvl() total task gettasksnum()  file open getopenfilecount()))
+  s = addnewline(s,(mifo  getmeminfo() tabandvl() muse memg()))
+  s = addnewline(s,(uptm upper(getuptime() tabandvl() ctim gettime())))
+  s = addnewline(s,(getcpuload() tabandvl() total cpu getcpunum()))
+  s = addnewline(s,splitline())
   return s
 
 memg:
@@ -90,3 +114,16 @@ getuptime:
 getopenfilecount:
   r = "lsof|wc -l"()
   return r
+
+getpsinfo:
+  /* need to fix */
+  call 'ps ax'
+  aline = result
+  do i = 1 by 1 while aline <> ''
+    parse value aline with t1 t2 t3 t4 t5 aline
+    r.i = t1 tab()t2 tab()t3 tab()t4 tab()t5 
+    say r.i
+  end
+  return r
+
+  
