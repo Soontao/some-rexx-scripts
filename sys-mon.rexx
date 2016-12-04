@@ -12,7 +12,7 @@ exit
 /* Functions */
 
 main:
-  say now is not available
+  showscreen();
   return ''
 
 test:
@@ -32,6 +32,7 @@ test:
 showscreen:
   s = buildscreen();
   say s
+  "ps aux"
   return ''
 
 lf:
@@ -53,7 +54,7 @@ splitline:
   
 addnewline:
   arg s,add
-  s = s||add lf();
+  s = s||add||lf() 
   return s 
 
 
